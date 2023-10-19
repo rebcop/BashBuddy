@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APP NAME: By Rebecca Copeland</title>
+    <title>Bash Buddy: By Rebecca Copeland</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -28,14 +28,14 @@
 
 <!-- CHANGE THEME ACCORDINGLY TO LOGO -->
 
-<body data-rc-theme="sunset">
+<body data-rc-theme="sunset" onload="buildDropDown()">
 
     <!-- #region navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/index.html">
                 <img src="/img/Rebecca-Copeland-logo-white.svg" height="30" />
-                APP NAME
+                Bash Buddy
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -55,7 +55,7 @@
                     </li>
                     <li class="nav-item">
                         <!-- CHANGE ME TO THE REAL REPO LINK -->
-                        <a class="nav-link" href="https://github.com/rebcop" target="_blank">The Repo</a>
+                        <a class="nav-link" href="https://github.com/rebcop/BashBuddy" target="_blank">The Repo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://rebcop.dev/" target="_blank">Portfolio</a>
@@ -64,7 +64,7 @@
                         <!-- CHANGE ME TO THE DEPLOYED BLOG PROJECT -->
                         <!-- NOTE: it would be a great idea to write a blog and
                         link here -->
-                        <a class="nav-link" href="" target="_blank">Blog</a>
+                        <a class="nav-link disabled" href="" target="_blank">Blog</a>
                     </li>
                 </ul>
             </div>
@@ -73,11 +73,82 @@
     <!-- #endregion navbar -->
 
     <main class="container py-3">
-        <h1>APP UI GOES HERE</h1>
-        <input class="form-control my-3" placeholder="Enter a message" type="text" style="width: 10rem" name="message"
-            id="message" />
 
-        <button id="btnSubmit" class="btn btn-primary">Display Message</button>
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="col order-md-last text-center">
+                <!-- App logo -->
+                <img src="/img/BashBuddy.svg" class="img-fluid p-3" />
+            </div>
+            <div class="col">
+                <!-- stats -->
+                <div class="card shadow">
+                    <div class="card-body">
+
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdown-btn">
+                              Pick a Location
+                            </button>
+                            <ul class="dropdown-menu" id="city-dropdown">
+                              <!-- dropdown menu choices go here -->
+                            </ul>
+                          </div>
+
+                          <table class="table table-striped mt-2 border">
+                            <thead class="table-danger">
+                                <th colspan="2">
+                                    Stats for <span id="stats-location">All</span> Events
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Total Attendance</td>
+                                    <td id="total-attendance">1,000</td>
+                                </tr>
+                                <tr>
+                                    <td >Average Attendance</td>
+                                    <td id="avg-attendance">1,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Most Attended</td>
+                                    <td id="max-attended">1,000</tdid>
+                                </tr>
+                                <tr>
+                                    <td>Least Attended</td>
+                                    <td id="min-attended" >1,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    
+
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 card">
+            <div class="card-body">
+                <button class="btn btn-primary" id="new-event-btn">Add Event</button>
+
+                <div class="table-responsive">
+                    <table class="table table-striped border mt-2">
+                        <thead class="table-danger">
+                            <tr>
+                                <th>Event Name</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Attendance</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventsTable">
+                            <!-- Events information goes here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
     </main>
 
@@ -99,6 +170,12 @@
         </div>
 
     </footer>
+
+    <!-- TEMPLATES -->
+    <!-- Dropdown Item Template -->
+    <template id="dropdown-item-template">
+        <li><a class="dropdown-item" href="#"></a></li>
+    </template>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
