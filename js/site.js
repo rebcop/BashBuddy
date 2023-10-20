@@ -182,11 +182,75 @@ function avgAttendance(events) {
         sum += event.attendance;
     }
 
-    avg = sum / events.length;
+    avg = Math.round(sum / events.length);
 
     return avg;
 }
 
+// Alternative maxAttendance
+// function maxAttendance(events) {
+
+//     // Returns array of all attendance from event objects in event array
+//     let attendanceArray = events.map(event => event.attendance );
+
+//     // get max number and used spread operator to take array
+//     let max = Math.max(...attendanceArray);
+
+//     return max;
+
+// }
+
+// Calculate the max attendance and return it
+function maxAttendance(events) {
+
+    // Declare variable with 
+    let max = 0;
+
+    // Returns array of all attendance from event objects in event array
+    for( let i = 0; i < events.length; i++) {
+
+        if ( events[i].attendance > max ) {
+
+            max = events[i].attendance;
+        }
+
+    }
+
+    return max;
+
+}
+
+// Alternative minAttendance
+// function minAttendance(events) {
+
+//     // returns array of all attendance from event objects in event array
+//     let attendanceArray = events.map(event => event.attendance );
+
+//     // get min number and use spread operator to take array
+//     let min = Math.min(...attendanceArray);
+
+//     return min;
+// }
+
+// Calculate the max attendance and return it
+function minAttendance(events) {
+
+    // Declare variable with quantity from events to start with
+    let min = events[0].attendance;
+
+    // Returns array of all attendance from event objects in event array
+    for( let i = 0; i < events.length; i++) {
+
+        if ( events[i].attendance < min ) {
+
+            min = events[i].attendance;
+        }
+
+    }
+
+    return min;
+
+}
 
 function displayStats(events) {
     // calculating and displaying the total attendance
@@ -195,8 +259,14 @@ function displayStats(events) {
 
     // calculating and displaying the avg attendance
     let avg = avgAttendance(events);
-    document.getElementById('avg-attendance').innerText = avg;
+    document.getElementById('avg-attendance').innerText = avg.toLocaleString();
 
-    // calculating and displaying and displaying the min attendance
     // calculating and displaying and displaying the max attendance
+    let max = maxAttendance(events);
+    document.getElementById('max-attended').innerText = max.toLocaleString();
+
+    // // calculating and displaying and displaying the min attendance
+    let min = minAttendance(events);
+    document.getElementById('min-attended').innerText = min.toLocaleString();
+
 }
