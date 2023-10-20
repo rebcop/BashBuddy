@@ -110,7 +110,8 @@ footer .bi:hover {
 
 /* #region Code */
 
-p span {
+p span,
+ul span {
     background-color: #e2e3e5;
     padding: 0 .5rem;
 }

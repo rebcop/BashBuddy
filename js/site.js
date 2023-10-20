@@ -143,11 +143,14 @@ function displayEvents(events) {
         eventRow.appendChild(eventState);
 
         let eventAttendance = document.createElement('td');
-        eventAttendance.innerText = event.attendance;
+        eventAttendance.innerText = event.attendance.toLocaleString();
         eventRow.appendChild(eventAttendance);
 
         let eventDate = document.createElement('td');
-        eventDate.innerText = event.date;
+
+        let date = new Date(event.date);
+
+        eventDate.innerText = date.toLocaleDateString();
         eventRow.appendChild(eventDate);
         
         // append the row to the <tbody>
@@ -158,7 +161,7 @@ function displayEvents(events) {
 }
 
 // calculate the sum of attendance and return it
-function sumAttendance(events) {
+function sumAttendance(events) { // for reference
     let sum = 0;
 
     for(let i = 0; i < events.length; i++) {
@@ -171,7 +174,7 @@ function sumAttendance(events) {
 }
 
 // Calculate the avg attendance and return it
-function avgAttendance(events) {
+function avgAttendance(events) { // for reference
 
     let sum = 0;
     let avg = 0;
@@ -201,7 +204,7 @@ function avgAttendance(events) {
 // }
 
 // Calculate the max attendance and return it
-function maxAttendance(events) {
+function maxAttendance(events) { // for reference
 
     // Declare variable with 
     let max = 0;
@@ -213,7 +216,6 @@ function maxAttendance(events) {
 
             max = events[i].attendance;
         }
-
     }
 
     return max;
@@ -233,40 +235,116 @@ function maxAttendance(events) {
 // }
 
 // Calculate the max attendance and return it
-function minAttendance(events) {
+function minAttendance(events) { // for reference
 
     // Declare variable with quantity from events to start with
-    let min = events[0].attendance;
+    let min = events[0].attendance; // Could use infinity to initialize and have for loop start at 0
 
     // Returns array of all attendance from event objects in event array
-    for( let i = 0; i < events.length; i++) {
+    for( let i = 1; i < events.length; i++ ) {
 
         if ( events[i].attendance < min ) {
 
             min = events[i].attendance;
         }
-
     }
 
     return min;
 
 }
 
+function calculateStats(events) {
+
+    let sum = 0;
+    let min = events[0].attendance;
+    let max = 0;
+
+    for(let i = 0; i < events.length; i++) {
+        let event = events[i];
+
+        sum += event.attendance;
+
+        // Checks for the min attendance
+        if ( event.attendance < min ) {
+            min = event.attendance;
+        }
+
+        // Checks for the max attendance
+        if ( event.attendance > max ) {
+            max = event.attendance;
+        }
+    }
+
+    let avg = sum / events.length;
+
+    // Shorter way to type objects if the properties are the same as the variable values
+    let stats = {
+        sum,
+        avg,
+        min,
+        max
+    }
+
+    return stats;
+}
+
 function displayStats(events) {
+
+    let stats = calculateStats(events);
     // calculating and displaying the total attendance
-    let total = sumAttendance(events);
-    document.getElementById('total-attendance').innerText = total.toLocaleString();
+    document.getElementById('total-attendance').innerText = stats.sum.toLocaleString();
 
     // calculating and displaying the avg attendance
-    let avg = avgAttendance(events);
-    document.getElementById('avg-attendance').innerText = avg.toLocaleString();
+    document.getElementById('avg-attendance').innerText = stats.avg.toLocaleString();
 
     // calculating and displaying and displaying the max attendance
-    let max = maxAttendance(events);
-    document.getElementById('max-attended').innerText = max.toLocaleString();
+    document.getElementById('max-attended').innerText = stats.max.toLocaleString();
 
     // // calculating and displaying and displaying the min attendance
-    let min = minAttendance(events);
-    document.getElementById('min-attended').innerText = min.toLocaleString();
+    document.getElementById('min-attended').innerText = stats.min.toLocaleString();
+
+}
+
+function filterByCity(element) {
+
+    // get all the events
+    let cityName = element.textContent;
+
+    // get all the events
+    let allEvents = getEvents();
+
+    // filter those events to just one city
+    let filteredEvents = [];
+
+    for (let i = 0; i < allEvents.length; i++) {
+        let event = allEvents[i];
+
+        if ( cityName == event.city || cityName == 'All' ) {
+            filteredEvents.push(event);
+        }
+
+        // OTHER OPTION TYPE 1: Anonymous function with the filter method can be used to filter the array
+        // filteredEvents = allEvents.filter(function(event) {
+        //     if (event.city == cityName || cityName == 'All') {
+        //         return event;
+        //     } 
+        // })
+
+        // OTHER OPTION TYPE 2: Lambda expression with the filter method can be used to filter the array below is the same as the for loop 
+        // if (cityName == 'All') {
+        //     filteredEvents = allEvents;
+        // } else {
+        //     filteredEvents = allEvents.filter(event => event.city == cityName)
+        // }
+    
+        // OTHER OPTION TYPE 3: Ternary statement
+        // let filteredEvents = cityName = 'All' ? allEvents : allEvents.filter(e => e.city == cityName);
+    }
+
+    // call displayStats with the events for that city
+    displayStats(filteredEvents);
+
+    // call displayEvents with the events for that city
+    displayEvents(filteredEvents);
 
 }
