@@ -64,7 +64,7 @@
                         <!-- CHANGE ME TO THE DEPLOYED BLOG PROJECT -->
                         <!-- NOTE: it would be a great idea to write a blog and
                         link here -->
-                        <a class="nav-link disabled" href="" target="_blank">Blog</a>
+                        <a class="nav-link disabled d-none" href="" target="_blank">Blog</a>
                     </li>
                 </ul>
             </div>
@@ -79,21 +79,22 @@
                 <!-- App logo -->
                 <img src="/img/BashBuddy.svg" class="img-fluid p-3" />
             </div>
-            <div class="col">
+            <div class="col vertic">
                 <!-- stats -->
                 <div class="card shadow">
                     <div class="card-body">
 
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdown-btn">
-                              Pick a Location
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" id="dropdown-btn">
+                                Pick a Location
                             </button>
                             <ul class="dropdown-menu" id="city-dropdown">
-                              <!-- dropdown menu choices go here -->
+                                <!-- dropdown menu choices go here -->
                             </ul>
-                          </div>
+                        </div>
 
-                          <table class="table table-striped mt-2 border">
+                        <table class="table table-striped mt-2 border">
                             <thead class="table-danger">
                                 <th colspan="2">
                                     Stats for <span id="stats-location">All</span> Events
@@ -105,7 +106,7 @@
                                     <td id="total-attendance">1,000</td>
                                 </tr>
                                 <tr>
-                                    <td >Average Attendance</td>
+                                    <td>Average Attendance</td>
                                     <td id="avg-attendance">1,000</td>
                                 </tr>
                                 <tr>
@@ -114,14 +115,14 @@
                                 </tr>
                                 <tr>
                                     <td>Least Attended</td>
-                                    <td id="min-attended" >1,000</td>
+                                    <td id="min-attended">1,000</td>
                                 </tr>
                             </tbody>
                         </table>
 
                     </div>
 
-                    
+
 
                 </div>
             </div>
@@ -129,7 +130,8 @@
 
         <div class="mt-5 card">
             <div class="card-body">
-                <button class="btn btn-primary" id="new-event-btn">Add Event</button>
+                <button class="btn btn-primary" id="new-event-btn" data-bs-toggle="modal"
+                    data-bs-target="#addEventModal">Add Event</button>
 
                 <div class="table-responsive">
                     <table class="table table-striped border mt-2">
@@ -171,10 +173,117 @@
 
     </footer>
 
+    <!-- Add Event Modal -->
+    <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addEventModalLabel">Add A New Event</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="newEventForm" action="#">
+                    <div class="modal-body">
+
+                        <label class="form-label" for="newEventName">Event Name</label>
+                        <input 
+                                class="form-control" 
+                                id="newEventName" 
+                                type="text" 
+                                name="event" 
+                                placeholder="Event"
+                                required />
+                        <label class="form-label" for="newEventcity">City</label>
+                        <input 
+                                class="form-control" 
+                                id="newEventcity" 
+                                type="text" 
+                                name="city" 
+                                placeholder="City" 
+                                required />
+                        <label class="form-label" for="newEventState">State</label>
+                        <select class="form-control" id="newEventState" name="state" required>
+                            <option value="">Select a state</option>
+                            <option value="Alabama">Alabama</option>
+                            <option value="Alaska">Alaska</option>
+                            <option value="Arizona">Arizona</option>
+                            <option value="Arkansas">Arkansas</option>
+                            <option value="California">California</option>
+                            <option value="Colorado">Colorado</option>
+                            <option value="Connecticut">Connecticut</option>
+                            <option value="Delaware">Delaware</option>
+                            <option value="District Of Columbia">District Of Columbia</option>
+                            <option value="Florida">Florida</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Hawaii">Hawaii</option>
+                            <option value="Idaho">Idaho</option>
+                            <option value="Illinois">Illinois</option>
+                            <option value="Indiana">Indiana</option>
+                            <option value="Iowa">Iowa</option>
+                            <option value="Kansas">Kansas</option>
+                            <option value="Kentucky">Kentucky</option>
+                            <option value="Louisiana">Louisiana</option>
+                            <option value="Maine">Maine</option>
+                            <option value="Maryland">Maryland</option>
+                            <option value="Massachusetts">Massachusetts</option>
+                            <option value="Michigan">Michigan</option>
+                            <option value="Minnesota">Minnesota</option>
+                            <option value="Mississippi">Mississippi</option>
+                            <option value="Missouri">Missouri</option>
+                            <option value="Montana">Montana</option>
+                            <option value="Nebraska">Nebraska</option>
+                            <option value="Nevada">Nevada</option>
+                            <option value="New Hampshire">New Hampshire</option>
+                            <option value="New Jersey">New Jersey</option>
+                            <option value="New Mexico">New Mexico</option>
+                            <option value="New York">New York</option>
+                            <option value="North Carolina">North Carolina</option>
+                            <option value="North Dakota">North Dakota</option>
+                            <option value="Ohio">Ohio</option>
+                            <option value="Oklahoma">Oklahoma</option>
+                            <option value="Oregon">Oregon</option>
+                            <option value="Pennsylvania">Pennsylvania</option>
+                            <option value="Rhode Island">Rhode Island</option>
+                            <option value="South Carolina">South Carolina</option>
+                            <option value="South Dakota">South Dakota</option>
+                            <option value="Tennessee">Tennessee</option>
+                            <option value="Texas">Texas</option>
+                            <option value="Utah">Utah</option>
+                            <option value="Vermont">Vermont</option>
+                            <option value="Virginia">Virginia</option>
+                            <option value="Washington">Washington</option>
+                            <option value="West Virginia">West Virginia</option>
+                            <option value="Wisconsin">Wisconsin</option>
+                            <option value="Wyoming">Wyoming</option>
+                        </select>
+                        <label class="form-label" for="newEventAttendance">Attendance</label>
+                        <input 
+                                class="form-control" 
+                                id="newEventAttendance" 
+                                type="number" 
+                                name="attendance"
+                                placeholder="Attendance" 
+                                required />
+                        <label class="form-label" for="newEventDate">Event Date</label>
+                        <input class="form-control" 
+                                id="newEventDate" 
+                                type="date" 
+                                name="date" 
+                                required />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <!-- TEMPLATES -->
     <!-- Dropdown Item Template -->
     <template id="dropdown-item-template">
-        <li><a class="dropdown-item" href="#" onclick="filterByCity(this)"></a></li>
+        <li><a class="dropdown-item" role="button" href="#" onclick="filterByCity(this)"></a></li>
     </template>
 
     <!-- Bootstrap JS -->
@@ -189,11 +298,13 @@
     <script src="/js/site.js"></script>
 
     <script>
-        // get the button on the page and assign it to a variable
-        let button = document.getElementById('btnSubmit');
+        // get the form element
+        let newEventForm = document.getElementById('newEventForm');
 
-        // tell the button to run our displayMessage function when clicked
-        button.addEventListener('click', displayMessage);
+        newEventForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // don't refresh the page when submit button pressed
+            saveNewEvent(); // isntead, run this function
+        });
 
     </script>
 </body>

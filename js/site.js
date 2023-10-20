@@ -87,6 +87,9 @@ function buildDropDown() {
 
     const dropdownMenu = document.getElementById('city-dropdown');
 
+    // Clear out what's already in the menu before adding
+    dropdownMenu.innerHTML = '';
+
     // for each of those city names:
     for ( let i=0; i < dropdownChoices.length; i++) {
 
@@ -104,12 +107,37 @@ function buildDropDown() {
     displayEvents(currentEvents);
 
     displayStats(currentEvents);
+
+    // reset table header name
+    document.getElementById('stats-location').textContent = 'All';
+
 }
 
 function getEvents() {
-    // TODO: get events from local storage
+    // get events from local storage
+    let eventsJson = localStorage.getItem('rpc-events');
 
-    return events;
+    // initialize stored events if someone hasn't been to the page before
+    let storedEvents = events;
+
+    // check if user has events in local storage
+    if (eventsJson == null) {
+        saveEvents(events);
+    } else {
+        storedEvents = JSON.parse(eventsJson);
+    }
+
+    return storedEvents;
+}
+
+// Save event added in modal to local storage
+function saveEvents(events) {
+
+    let eventsJson = JSON.stringify(events);
+
+    // storaged in the browser for undetermined amount of time, can be seen and modified by anyone
+    localStorage.setItem('rpc-events', eventsJson);
+
 }
 
 function displayEvents(events) {
@@ -159,6 +187,148 @@ function displayEvents(events) {
     }
 
 }
+
+
+function calculateStats(events) {
+
+    let sum = 0;
+    let min = events[0].attendance;
+    let max = 0;
+
+    for(let i = 0; i < events.length; i++) {
+        let event = events[i];
+
+        sum += event.attendance;
+
+        // Checks for the min attendance
+        if ( event.attendance < min ) {
+            min = event.attendance;
+        }
+
+        // Checks for the max attendance
+        if ( event.attendance > max ) {
+            max = event.attendance;
+        }
+    }
+
+    let avg = sum / events.length;
+
+    // Shorter way to type objects if the properties are the same as the variable values
+    let stats = {
+        sum,
+        avg,
+        min,
+        max
+    }
+
+    return stats;
+}
+
+function displayStats(events) {
+
+    let stats = calculateStats(events);
+    // calculating and displaying the total attendance
+    document.getElementById('total-attendance').innerText = stats.sum.toLocaleString();
+
+    // calculating and displaying the avg attendance
+    document.getElementById('avg-attendance').innerText = stats.avg.toLocaleString();
+
+    // calculating and displaying and displaying the max attendance
+    document.getElementById('max-attended').innerText = stats.max.toLocaleString();
+
+    // // calculating and displaying and displaying the min attendance
+    document.getElementById('min-attended').innerText = stats.min.toLocaleString();
+
+}
+
+function filterByCity(element) {
+
+    // get all the events
+    let cityName = element.textContent;
+
+    // revise table header name
+    document.getElementById('stats-location').textContent = cityName;
+
+    // get all the events
+    let allEvents = getEvents();
+
+    // filter those events to just one city
+    let filteredEvents = [];
+
+    for (let i = 0; i < allEvents.length; i++) {
+        let event = allEvents[i];
+
+        if ( cityName == event.city || cityName == 'All' ) {
+            filteredEvents.push(event);
+        }
+
+        // OTHER OPTION TYPE 1: Anonymous function with the filter method can be used to filter the array
+        // filteredEvents = allEvents.filter(function(event) {
+        //     if (event.city == cityName || cityName == 'All') {
+        //         return event;
+        //     } 
+        // })
+
+        // OTHER OPTION TYPE 2: Lambda expression with the filter method can be used to filter the array below is the same as the for loop 
+        // if (cityName == 'All') {
+        //     filteredEvents = allEvents;
+        // } else {
+        //     filteredEvents = allEvents.filter(event => event.city == cityName)
+        // }
+    
+        // OTHER OPTION TYPE 3: Ternary statement
+        // let filteredEvents = cityName = 'All' ? allEvents : allEvents.filter(e => e.city == cityName);
+    }
+
+    // call displayStats with the events for that city
+    displayStats(filteredEvents);
+
+    // call displayEvents with the events for that city
+    displayEvents(filteredEvents);
+
+}
+
+function saveNewEvent() {
+
+    // Get HTML form element
+    let newEventForm = document.getElementById('newEventForm');
+    let formData = new FormData(newEventForm);
+
+    // Creates an object from the <input>s
+    // value of the property is the value of the input and the property is the name
+    // <input name="city" value="kernersville" />
+    // let newEvent = { city: 'Kernersville}
+    let newEvent = Object.fromEntries(formData.entries());
+
+    // change text to number for attendance
+    newEvent.attendance = parseInt(newEvent.attendance);
+
+    // make sure all dates recieved are consistent in the way they're recieved
+    newEvent.date = new Date(newEvent.date).toLocaleDateString();
+
+    // Grab the list of events
+    let allEvents = getEvents();
+
+    // Add new event to list
+    allEvents.push(newEvent);
+
+    // Save updated list of events
+    saveEvents(allEvents);
+
+    // Resets the form so it goes back to how it was when page loaded
+    newEventForm.reset();
+
+    displayEvents(allEvents);
+
+    // hide the Bootstrap Modal
+    let modalElement = document.getElementById('addEventModal');
+    let bsModal = bootstrap.Modal.getInstance(modalElement);
+    bsModal.hide();
+
+    // display all events
+    buildDropDown();
+}
+
 
 // calculate the sum of attendance and return it
 function sumAttendance(events) { // for reference
@@ -250,101 +420,5 @@ function minAttendance(events) { // for reference
     }
 
     return min;
-
-}
-
-function calculateStats(events) {
-
-    let sum = 0;
-    let min = events[0].attendance;
-    let max = 0;
-
-    for(let i = 0; i < events.length; i++) {
-        let event = events[i];
-
-        sum += event.attendance;
-
-        // Checks for the min attendance
-        if ( event.attendance < min ) {
-            min = event.attendance;
-        }
-
-        // Checks for the max attendance
-        if ( event.attendance > max ) {
-            max = event.attendance;
-        }
-    }
-
-    let avg = sum / events.length;
-
-    // Shorter way to type objects if the properties are the same as the variable values
-    let stats = {
-        sum,
-        avg,
-        min,
-        max
-    }
-
-    return stats;
-}
-
-function displayStats(events) {
-
-    let stats = calculateStats(events);
-    // calculating and displaying the total attendance
-    document.getElementById('total-attendance').innerText = stats.sum.toLocaleString();
-
-    // calculating and displaying the avg attendance
-    document.getElementById('avg-attendance').innerText = stats.avg.toLocaleString();
-
-    // calculating and displaying and displaying the max attendance
-    document.getElementById('max-attended').innerText = stats.max.toLocaleString();
-
-    // // calculating and displaying and displaying the min attendance
-    document.getElementById('min-attended').innerText = stats.min.toLocaleString();
-
-}
-
-function filterByCity(element) {
-
-    // get all the events
-    let cityName = element.textContent;
-
-    // get all the events
-    let allEvents = getEvents();
-
-    // filter those events to just one city
-    let filteredEvents = [];
-
-    for (let i = 0; i < allEvents.length; i++) {
-        let event = allEvents[i];
-
-        if ( cityName == event.city || cityName == 'All' ) {
-            filteredEvents.push(event);
-        }
-
-        // OTHER OPTION TYPE 1: Anonymous function with the filter method can be used to filter the array
-        // filteredEvents = allEvents.filter(function(event) {
-        //     if (event.city == cityName || cityName == 'All') {
-        //         return event;
-        //     } 
-        // })
-
-        // OTHER OPTION TYPE 2: Lambda expression with the filter method can be used to filter the array below is the same as the for loop 
-        // if (cityName == 'All') {
-        //     filteredEvents = allEvents;
-        // } else {
-        //     filteredEvents = allEvents.filter(event => event.city == cityName)
-        // }
-    
-        // OTHER OPTION TYPE 3: Ternary statement
-        // let filteredEvents = cityName = 'All' ? allEvents : allEvents.filter(e => e.city == cityName);
-    }
-
-    // call displayStats with the events for that city
-    displayStats(filteredEvents);
-
-    // call displayEvents with the events for that city
-    displayEvents(filteredEvents);
 
 }
