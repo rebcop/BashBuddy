@@ -24,7 +24,7 @@ Desktop Web App Screenshot:
 
 Mobile Web App Screenshot:
 <br/>
-<img src="./img/iphone-screenshot.jpg" alt="Mobile Screenshot" width="25%" height="auto">
+<img src="./img/iphone-screenshot.JPG" alt="Mobile Screenshot" width="25%" height="auto">
 
 ### Links
 
