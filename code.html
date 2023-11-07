@@ -81,85 +81,85 @@
             <div class="col-12 col-lg-8">
                 <pre class="line-numbers">
                     <code class="language-js">
-                        const events = [
-                        {
-                            event: "ComicCon",
-                            city: "New York",
-                            state: "New York",
-                            attendance: 240000,
-                            date: "06/01/2017",
-                        },
-                        {
-                            event: "ComicCon",
-                            city: "New York",
-                            state: "New York",
-                            attendance: 250000,
-                            date: "06/01/2018",
-                        },
-                        {
-                            event: "ComicCon",
-                            city: "New York",
-                            state: "New York",
-                            attendance: 257000,
-                            date: "06/01/2019",
-                        },
-                        {
-                            event: "ComicCon",
-                            city: "San Diego",
-                            state: "California",
-                            attendance: 130000,
-                            date: "06/01/2017",
-                        },
-                        {
-                            event: "ComicCon",
-                            city: "San Diego",
-                            state: "California",
-                            attendance: 140000,
-                            date: "06/01/2018",
-                        },
-                        {
-                            event: "ComicCon",
-                            city: "San Diego",
-                            state: "California",
-                            attendance: 150000,
-                            date: "06/01/2019",
-                        },
-                        {
-                            event: "HeroesCon",
-                            city: "Charlotte",
-                            state: "North Carolina",
-                            attendance: 40000,
-                            date: "06/01/2017",
-                        },
-                        {
-                            event: "HeroesCon",
-                            city: "Charlotte",
-                            state: "North Carolina",
-                            attendance: 45000,
-                            date: "06/01/2018",
-                        },
-                        {
-                            event: "HeroesCon",
-                            city: "Charlotte",
-                            state: "North Carolina",
-                            attendance: 50000,
-                            date: "06/01/2019",
-                        },
-                    ];
+                    // Test Data
+                    const events = [
+                    {
+                        event: "ComicCon",
+                        city: "New York",
+                        state: "New York",
+                        attendance: 240000,
+                        date: "06/01/2017",
+                    },
+                    {
+                        event: "ComicCon",
+                        city: "New York",
+                        state: "New York",
+                        attendance: 250000,
+                        date: "06/01/2018",
+                    },
+                    {
+                        event: "ComicCon",
+                        city: "New York",
+                        state: "New York",
+                        attendance: 257000,
+                        date: "06/01/2019",
+                    },
+                    {
+                        event: "ComicCon",
+                        city: "San Diego",
+                        state: "California",
+                        attendance: 130000,
+                        date: "06/01/2017",
+                    },
+                    {
+                        event: "ComicCon",
+                        city: "San Diego",
+                        state: "California",
+                        attendance: 140000,
+                        date: "06/01/2018",
+                    },
+                    {
+                        event: "ComicCon",
+                        city: "San Diego",
+                        state: "California",
+                        attendance: 150000,
+                        date: "06/01/2019",
+                    },
+                    {
+                        event: "HeroesCon",
+                        city: "Charlotte",
+                        state: "North Carolina",
+                        attendance: 40000,
+                        date: "06/01/2017",
+                    },
+                    {
+                        event: "HeroesCon",
+                        city: "Charlotte",
+                        state: "North Carolina",
+                        attendance: 45000,
+                        date: "06/01/2018",
+                    },
+                    {
+                        event: "HeroesCon",
+                        city: "Charlotte",
+                        state: "North Carolina",
+                        attendance: 50000,
+                        date: "06/01/2019",
+                    }];
                     
-                    // Entrypoint of application, runs when the page loads
+                    // Entry point of application, runs when the page loads
                     function buildDropDown() {
                     
                         // get all the events that we know about
                         let currentEvents = getEvents();
                     
-                        // get a list of unique city names, using map and lambda expression
+                        // get a list of city names, using map and lambda expression
                         let eventCities = currentEvents.map(event => event.city);
                     
                         // Class constructor, take array of event cities which has dups and store only unique values as a set
                         let uniqueCities = new Set(eventCities);
                     
-                        // spread operator [...], takes the set and spreads it out into an array with 'All' added at index 0
+                        // spread operator [...], takes the set and spreads it out into another array with 'All' added at index 0
                         let dropdownChoices = ['All', ...uniqueCities];
                     
                         // Get template for dropdown before looping over each item
@@ -175,11 +175,11 @@
                     
                             let cityName = dropdownChoices[i];
                     
-                        //  make a dropdown item HTML element
+                            // make a dropdown item HTML element
                             let dropdownItem = dropdownTemplate.content.cloneNode(true);
                             dropdownItem.querySelector('a').innerText = cityName;
                         
-                        //  add that element to the dropdown menu
+                            // add that element to the dropdown menu
                             dropdownMenu.appendChild(dropdownItem);
                         }
                         
@@ -191,6 +191,7 @@
                         document.getElementById('stats-location').textContent = 'All';
                     }
                     
+                    // Grabs the latest events
                     function getEvents() {
                         // get events from local storage
                         let eventsJson = localStorage.getItem('rpc-events');
@@ -198,7 +199,7 @@
                         // initialize stored events if someone hasn't been to the page before
                         let storedEvents = events;
                     
-                        // check if user has events in local storage
+                        // check for events have been saved before
                         if (eventsJson == null) {
                             saveEvents(events);
                         } else {
@@ -213,10 +214,11 @@
                     
                         let eventsJson = JSON.stringify(events);
                     
-                        // storaged in the browser for undetermined amount of time, can be seen and modified by anyone
+                        // store in the browser for undetermined amount of time, can be seen and modified by anyone
                         localStorage.setItem('rpc-events', eventsJson);
                     }
                     
+
                     function displayEvents(events) {
                     
                         // get the table to put the events in
@@ -405,22 +407,57 @@
             <div class="col-12 col-lg-4">
                 <h4>TL;DR</h4>
                 <p>
-
+                    Use <code>localStorage.setItem()</code> & <code>localStorage.getItem()</code> to store information
+                    in the browser.
+                    This information is only accessible on the same browser it was saved in.
                 </p>
                 <h4>Code Explanation</h4>
                 <p>Bash Buddy was created with the following functions:</p>
                 <p>
-                    
+                    <code>buildDropDown</code>
+                </p>
+                <p>
+                    <code>getEvents</code>
+                </p>
+                <p>
+                    <code>saveEvents</code>
+                </p>
+                <p>
+                    <code>displayEvents</code>
+                </p>
+                <p>
+                    <code>calculateStats</code>
+                </p>
+                <p>
+                    <code>displayStats</code>
+                </p>
+                <p>
+                    <code>filterByCity</code>
+                </p>
+                <p>
+                    <code>saveNewEvent</code>
+                </p>
+                <p>
+
                 </p>
 
                 <h4>What I learned</h4>
                 <ul>
-                    <li></li>
+                    <li>Use <code>map</code> to easily create an <span>array</span> of a spcific property from an
+                        <span>array</span> of objects
+                    </li>
+                    <li>Use <code>Set</code> to provide an <span>array</span> that only contains unique values</li>
+                    <li><code>localStorage.setItem()</code> & <code>localStorage.getItem()</code> allows for storing and
+                        then getting information in the browser as a <span>JSON</span> for an undetermined amount of
+                        time. This stoarge can be viewed and modified by anyone who has access to the same browserthe
+                        information was stored in.</li>
                 </ul>
 
                 <h4>Improvements</h4>
                 <ul>
-                    <li></li>
+                    <li>Ability to delete one / all events</li>
+                    <li>Ability to filter by Event Name / Type, Date</li>
+                    <li>Set up initial data with an <span>API</span></li>
                 </ul>
             </div>
         </div>
@@ -434,7 +471,8 @@
                     &copy; 2023 Rebecca Copeland
                 </div>
                 <div class="col text-center">
-                    <img src="/img/Rebecca-Copeland-full-logo-white.svg" height="40" />
+                    <a class="nav-link" href="https://rebcop.dev/" target="_blank"><img
+                            src="/img/Rebecca-Copeland-full-logo-white.svg" height="40" /></a>
                 </div>
                 <div class="col text-center text-lg-end">
                     <a href="https://www.linkedin.com/in/rebcop/" target="_blank"><i class="bi bi-linkedin"></i></a>
