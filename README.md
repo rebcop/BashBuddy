@@ -28,8 +28,8 @@ Mobile Web App Screenshot:
 
 ### Links
 
-- Live Site URL: [Netlify]([https://fluffy-frangipane-3ef0bc.netlify.app/])
-- Repo URL: [Github Repo]([https://github.com/rebcop/MovieGarden])
+- Live Site URL: [Netlify](https://fluffy-frangipane-3ef0bc.netlify.app/)
+- Repo URL: [Github Repo](https://github.com/rebcop/MovieGarden)
 
 ## My process
 
