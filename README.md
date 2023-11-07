@@ -12,6 +12,7 @@ See the Buds Blossom! Display the numbers 1-100. If a number is divisible by the
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
+  - [Possible Improvements](#possible-improvements)
   - [Useful resources](#useful-resources)
 - [Author](#author)
 
@@ -28,7 +29,7 @@ Mobile Web App Screenshot:
 
 ### Links
 
-- Live Site URL: [Netlify](...)
+- Live Site URL: [Netlify]([https://fluffy-frangipane-3ef0bc.netlify.app/])
 - Repo URL: [Github Repo]([https://github.com/rebcop/MovieGarden])
 
 ## My process
@@ -45,15 +46,14 @@ Mobile Web App Screenshot:
 
 ### What I learned
 
-1. 
+1. Use map to easily create an array of a spcific property from an array of objects.
+2. Use set to provide an array that only contains unique values.
+3. localStorage.setItem() & localStorage.getItem() allows for storing and then getting information in the browser as a JSON for an undetermined amount of time. This stoarge can be viewed and modified by anyone who has access to the same browserthe information was stored in.
 
-
-    ```js
-
-    ```
-
-
-
+### Possible Improvements
+1. Ability to delete one / all events.
+2. Ability to filter by Event Name / Type, Date.
+3. Set up initial data with an API.
 
 ### Useful resources
 
