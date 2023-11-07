@@ -1,8 +1,7 @@
-# JSMiniTemplate - A Coding Challenge
+![Bash Buddy Logo](./img/BashBuddy.svg)
+# Bash Buddy - A Coding Challenge
 
-...
-Checkout FizzBuzz like you've never seen before in Blossom Buds!
-See the Buds Blossom! Display the numbers 1-100. If a number is divisible by the Blossom Value, a Blossom will be displayed. If a number is divisible by the Buds value, "Buds" will be displayed. If a number is divisible by both values, you'll see "Buds" Blossom!
+Bash Buddy is your best friend when it comes to displaying event data stats. Checkout the summary of stats from different Conventions and see how the stats update when you add your own events!
 
 ## Table of contents
 
@@ -21,11 +20,11 @@ See the Buds Blossom! Display the numbers 1-100. If a number is divisible by the
 ### Screenshot
 
 Desktop Web App Screenshot:
-![Desktop Screenshot](./img/...t.png)
+![Desktop Screenshot](./img/desktop-screenshot.png)
 
 Mobile Web App Screenshot:
 <br/>
-<img src="./img/....JPG" alt="Mobile Screenshot" width="25%" height="auto">
+<img src="./img/iphone-screenshot.jpg" alt="Mobile Screenshot" width="25%" height="auto">
 
 ### Links
 
