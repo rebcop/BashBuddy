@@ -39,8 +39,6 @@ Mobile Web App Screenshot:
 - JavaScript Fundamentals
 - JavaScript Loops
 - JavaScript DOM Manipulation
-- Async JavaScript Functions
-- JavaScript Fetch & API Usage
 - TECH STACK: JavaScript, HTML, CSS, Bootstrap
 
 ### What I learned
